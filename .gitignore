@@ -1,0 +1,8 @@
+.direnv
+.vscode
+
+/target
+saves
+extdata
+
+*bak
