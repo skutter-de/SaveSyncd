@@ -16,7 +16,7 @@ jobs:
       - name: Redocly Build
         uses: fluximus-prime/redocly-cli-github-action@v1
         with:
-          args: 'build-docs docs/savesyncd.yml -o docs.html'
+          args: 'build-docs docs/savesyncd.yaml -o docs.html'
 
       - name: Create deployment path
         run: |
