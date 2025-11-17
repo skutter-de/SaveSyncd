@@ -4,6 +4,9 @@ Server for [SaveSync](https://github.com/coolguy1842/SaveSync), built with [Rock
 ### Note
 All platforms except for Linux are untested
 
+## Documentation
+Documentation for the API is hosted [here](https://coolguy1842.github.io/SaveSyncd/)
+
 ## Usage
 Run with:
 ```sh
