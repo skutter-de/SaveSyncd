@@ -30,7 +30,4 @@ The default paths are:
 | Mac      | /Users/user/Library/Application Support/SaveSyncd            |
 
 ### TODO
-- [ ] Windows Service
-- [ ] Proper installation method
-- [ ] Systemd service
-- [ ] Enable option through nix module
+- [ ] Better Icon
