@@ -85,6 +85,5 @@ pub fn download_begin(tickets: &State<Tickets>, config: &State<Config>, data: Js
         return Err(Status::NoContent)
     }
 
-    println!("{:?}", actions);
     Ok(Json(BeginResponse{ ticket: ticket_id.hyphenated().to_string(), files: actions.iter().map(|action| action.1.clone()).collect() }))
 }
