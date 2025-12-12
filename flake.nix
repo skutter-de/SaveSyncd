@@ -39,7 +39,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
             manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
         in {
-            default = pkgs.rustPlatform.buildRustPackage  {
+            default = pkgs.rustPlatform.buildRustPackage rec {
                 pname = manifest.name;
                 version = manifest.version;
                 
@@ -47,6 +47,7 @@
                 src = pkgs.lib.cleanSource ./.;
 
                 nativeBuildInputs = with pkgs; [
+                    makeWrapper
                     pkg-config
                 ];
 
@@ -55,6 +56,11 @@
                     libappindicator-gtk3
                     xdotool
                 ];
+        
+                postFixup = ''
+                    wrapProgram $out/bin/SaveSyncd \
+                        --set LD_LIBRARY_PATH "${pkgs.lib.makeLibraryPath buildInputs}"
+                '';
 
                 meta = with pkgs.lib; {
                     description = "Server for my 3DS Save Sync program";
