@@ -11,9 +11,12 @@
             pkgs = nixpkgs.legacyPackages.${system};
         in {
             default = pkgs.mkShell rec {
-                nativeBuildInputs = with pkgs; [
+                packages = with pkgs; [
                     rustc
                     cargo
+                ];
+
+                nativeBuildInputs = with pkgs; [
                     gcc
                     pkg-config
                     redocly
