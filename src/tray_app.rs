@@ -1,4 +1,5 @@
 use crossbeam_channel::{Receiver, Sender, unbounded};
+use resvg::{tiny_skia::Pixmap, usvg::{self, Transform}};
 use tray_icon::{TrayIcon, TrayIconBuilder, menu::{Menu, MenuItem}};
 use winit::application::ApplicationHandler;
 use once_cell::sync::{OnceCell, Lazy};
@@ -54,16 +55,13 @@ impl Application {
     }
 
     pub fn new_tray_icon() -> TrayIcon {
-        let bytes = include_bytes!("../assets/icon.png");
-        let (icon_rgba, icon_width, icon_height) = {
-            let image = image::load_from_memory(bytes).expect("Failed to open icon path").into_rgba8();
-            let (width, height) = image.dimensions();
-            let rgba = image.into_raw();
-            (rgba, width, height)
-        };
+        let bytes = include_bytes!("../assets/icon.svg");
+        let tree = resvg::usvg::Tree::from_data(bytes, &usvg::Options::default()).expect("Failed to load SVG");
 
-        let icon = tray_icon::Icon::from_rgba(icon_rgba, icon_width, icon_height).expect("Failed to open icon");
+        let mut pixmap = Pixmap::new(1080, 1080).expect("Failed to create Pixmap");
+        resvg::render(&tree, Transform::default(), &mut pixmap.as_mut());
 
+        let icon = tray_icon::Icon::from_rgba(pixmap.data().to_vec(), pixmap.width(), pixmap.height()).expect("Failed to read icon");
         TrayIconBuilder::new()
             .with_menu(Box::new(Self::new_tray_menu()))
             .with_tooltip("winit - awesome windowing lib")
