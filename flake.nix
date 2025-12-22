@@ -63,7 +63,7 @@
                 '';
 
                 meta = with pkgs.lib; {
-                    description = "Server for my 3DS Save Sync program";
+                    description = "Server for a 3DS Save Sync program";
                     homepage = "https://github.com/coolguy1842/SaveSyncd/";
                     license = licenses.gpl3;
                 };
