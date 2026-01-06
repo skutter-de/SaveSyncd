@@ -8,6 +8,9 @@ RUN cargo build --release --no-default-features
 #FROM debian:trixie
 FROM scratch
 
+LABEL org.opencontainers.image.licenses=GPL-3.0-or-later
+LABEL org.opencontainers.image.description="A daemon for SaveSync, a tool to synchronize Nintendo 3DS savegames"
+
 ENV XDG_CONFIG_HOME=/config
 ENV XDG_DATA_HOME=/data
 
