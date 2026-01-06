@@ -1,18 +1,16 @@
-FROM rust:1 AS build
-
-RUN apt-get update && apt-get install libatk1.0-dev libgtk-3-dev libxdo-dev -y && apt-get clean
+#FROM rust:1 AS build
+from docker.io/clux/muslrust:stable AS build
 
 COPY . /build
 WORKDIR /build
-RUN cargo build --release
+RUN cargo build --release --no-default-features
 
-FROM debian:trixie
+#FROM debian:trixie
+FROM scratch
 
 ENV XDG_CONFIG_HOME=/config
 ENV XDG_DATA_HOME=/data
 
-RUN apt-get update && apt-get install libatk1.0-dev libgtk-3-dev libxdo-dev -y && apt-get clean
-
-COPY --from=build /build/target/release/SaveSyncd /
+COPY --from=build /build/target/x86_64-unknown-linux-musl/release/SaveSyncd /
 
 CMD ["/SaveSyncd"]
