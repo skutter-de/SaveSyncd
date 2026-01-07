@@ -29,7 +29,7 @@ docker run -p 8000:8000 -v ./config:/config -v ./data:/data ghcr.io/coolguy1842/
 ```yaml
 services:
   savesyncd:
-    image: ghcr.io/skutter-de/savesyncd:master
+    image: ghcr.io/coolguy1842/savesyncd:master
     restart: unless-stopped
     ports:
       - 8000:8000
